@@ -81,32 +81,35 @@ public class WebServer {
             // Handle exceptions
         }
         }
+    
 
-    private static String getMimeType(String fileName) {
-    int pos = fi
-
-    eName.lastIndexOf('.');
-    if (pos < 0) {  // no file extension in name
-        return "x-application/x-unknown";
+     
+    
+    xprivate static String getMimeType(String fileName) {
+        int pos = fileName.lastIndexOf('.');
+        if (pos < 0) {  // no file extension in name
+            return "x-application/x-unknown";
+        }
+        String ext = fileName.substring(pos + 1).toLowerCase();
+    
+        switch (ext) {
+            case "txt": return "text/plain";
+            case "html":
+            case "htm": return "text/html";
+            case "css": return "text/css";
+            case "js": return "text/javascript";
+            case "java": return "text/x-java";
+            case "jpeg":
+            case "jpg": return "image/jpeg";
+            case "png": return "image/png";
+            case "gif": return "image/gif";
+            case "ico": return "image/x-icon";
+            case "class": return "application/java-vm";
+            case "jar": return "application/java-archive";
+            case "zip": return "application/zip";
+            case "xml": return "application/xml";
+            case "xhtml": return "application/xhtml+xml";
+            default: return "x-application/x-unknown";
+        }
     }
-    String ext = fileName.substring(pos + 1).toLowerCase();
-    if (ext.equals("txt")) return "text/plain";
-    else if (ext.equals("html")) return "text/html";
-    else if (ext.equals("htm")) return "text/html";
-    else if (ext.equals("css")) return "text/css";
-    else if (ext.equals("js")) return "text/javascript";
-    else if (ext.equals("java")) return "text/x-java";
-    else if (ext.equals("jpeg")) return "image/jpeg";
-    else if (ext.equals("jpg")) return "image/jpeg";
-    else if (ext.equals("png")) return "image/png";
-    else if (ext.equals("gif")) return "image/gif";
-    else if (ext.equals("ico")) return "image/x-icon";
-    else if (ext.equals("class")) return "application/java-vm";
-    else if (ext.equals("jar")) return "application/java-archive";
-    else if (ext.equals("zip")) return "application/zip";
-    else if (ext.equals("xml")) return "application/xml";
-    else if (ext.equals("xhtml")) return "application/xhtml+xml";
-    else return "x-application/x-unknown";
-    // Note: x-application/x-unknown is something made up;
-    // it will probably make the browser offer to save the file.
 }
