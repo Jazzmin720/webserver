@@ -41,23 +41,23 @@ public class WebServer {
 
                 // Locate the requested file
                 File file = new File(ROOT_DIRECTORY, requestedFilePath);
-               
 
-            if (file.exists() && file.canRead() && !file.isDirectory()) {
-                long fileLength = file.length();
-                // Send HTTP response headers and status line
-                PrintWriter writer = new PrintWriter(socketOut, true);
-                writer.print("HTTP/1.1 200 OK\r\n");
-                writer.print("Content-Length: " + fileLength + "\r\n");
-                writer.print("Content-Type: " + getMimeType(file.getName()) + "\r\n");
-                writer.print("\r\n");
-                writer.flush();
+                if (file.exists() && file.canRead() && !file.isDirectory()) {
+                    long fileLength = file.length();
+                    // Send HTTP response headers and status line
+                    PrintWriter writer = new PrintWriter(socketOut, true);
+                    writer.print("HTTP/1.1 200 OK\r\n");
+                    writer.print("Content-Length: " + fileLength + "\r\n");
+                    writer.print("Content-Type: " + getMimeType(file.getName()) + "\r\n");
+                    writer.print("\r\n");
+                    writer.flush();
 
-                // Send file content
-                sendFile(file, socketOut);
-            } else {
-                // Send appropriate error response (404, 403, etc.)
-                sendErrorResponse(404, socketOut);
+                    // Send file content
+                    sendFile(file, socketOut);
+                } else {
+                    // Send appropriate error response (404, 403, etc.)
+                    sendErrorResponse(404, socketOut);
+                }
             }
         } catch (Exception e) {
             // Handle exceptions
@@ -68,6 +68,7 @@ public class WebServer {
                 // Handle closing exception
             }
         }
+
     }
 
     private static void sendFile(File file, OutputStream socketOut) throws IOException {
